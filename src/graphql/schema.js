@@ -11,6 +11,7 @@ const PersonType = new GraphQLObjectType({
   fields: {
     id: { type: GraphQLID },
     name: { type: GraphQLString },
+    email: { type: GraphQLString },
   },
 });
 
@@ -23,10 +24,12 @@ const peopleData = [
 const QueryType = new GraphQLObjectType({
   name: 'Query',
   fields: {
-    people: {
-      type: new GraphQLList(PersonType),
-      resolve: () => peopleData,
-    },
+	viewer: {
+		type: PersonType,
+		resolve: () => { 
+			return {id: 1, name: 'John Smith', email: 'john@asdf.com' }
+		}
+	}
   },
 });
 
